@@ -1,21 +1,21 @@
-// swift-tools-version:5.9
+// swift-tools-version: 5.9
 import PackageDescription
 
 let package = Package(
-    name: "ButtonKit",
+    name: "AsyncButtonKit",
     platforms: [
-        .iOS(.v14), // or change to iOS 15/16 based on your target
+        .iOS(.v14),
     ],
     products: [
         .library(
-            name: "ButtonKit",
+            name: "AsyncButtonKit",
             targets: ["ButtonKit"]
         ),
     ],
     targets: [
         .target(
             name: "ButtonKit",
-            dependencies: []
+            path: "Sources/ButtonKit"
         )
     ]
 )
