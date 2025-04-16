@@ -8,7 +8,7 @@ AsyncButtonKit provides a custom SwiftUI `AsyncButton` component that supports `
 
 ## 📱 Demo
 
-![AsyncButtonKit Demo](https://gifyu.com/image/bp9OV)
+[![bp9OV.gif](https://s6.gifyu.com/images/bp9OV.gif)](https://gifyu.com/image/bp9OV)
 
 ## Features
 
