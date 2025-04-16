@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum ButtonLoadingStyle {
+public enum ButtonLoadingStyle {
     case leading
     case trailing
     case overlay
@@ -15,16 +15,33 @@ enum ButtonLoadingStyle {
     case replace
 }
 
-struct AsyncButton<Label: View>: View {
-    var variant: ButtonVariant
-    var action: () async throws -> Void
-    var loadingStyle: ButtonLoadingStyle = .overlay
-    var onError: ((Error) -> Void)? = nil
-    @ViewBuilder var label: () -> Label
+import SwiftUI
 
-    @State private var isLoading = false
+public struct AsyncButton<Label: View>: View {
+    @Binding private var isLoading: Bool
 
-    var body: some View {
+    private let variant: ButtonVariant
+    private let action: () async throws -> Void
+    private let loadingStyle: ButtonLoadingStyle
+    private let onError: ((Error) -> Void)?
+    
+    @ViewBuilder private let label: () -> Label
+    
+    public init(isLoading: Binding<Bool> = .constant(false),
+                variant: ButtonVariant = .primary,
+                loadingStyle: ButtonLoadingStyle = .overlay,
+                onError: ((Error) -> Void)? = nil,
+                action: @escaping () async throws -> Void,
+                @ViewBuilder label: @escaping () -> Label) {
+        self._isLoading = isLoading
+        self.variant = variant
+        self.loadingStyle = loadingStyle
+        self.onError = onError
+        self.action = action
+        self.label = label
+    }
+
+    public var body: some View {
         Button {
             Task {
                 isLoading = true
@@ -84,6 +101,6 @@ struct AsyncButton<Label: View>: View {
             }
         }
         .buttonStyle(AsyncButtonStyle(variant: variant))
-        .disabled(isLoading) // ✅ disables tap while loading
+        .disabled(isLoading)
     }
 }

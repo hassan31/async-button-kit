@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum ButtonVariant {
+public enum ButtonVariant {
     case primary
     case secondary
     case destructive

@@ -16,10 +16,6 @@ let package = Package(
         .target(
             name: "ButtonKit",
             dependencies: []
-        ),
-        .testTarget(
-            name: "ButtonKitTests",
-            dependencies: ["ButtonKit"]
-        ),
+        )
     ]
 )
