@@ -1,40 +1,119 @@
-# 🔘 ButtonKit – Async & Throwable SwiftUI Buttons
+# AsyncButtonKit
 
-**ButtonKit** provides a flexible and reusable set of SwiftUI buttons that support asynchronous and throwable actions out of the box. It includes built-in loading states, styling variants, and multiple loading indicators like spinners and progress bars.
+[![Swift](https://img.shields.io/badge/Swift-5.9-orange.svg)](https://swift.org)
+[![Platforms](https://img.shields.io/badge/Platforms-iOS%20|%20macOS%20|%20watchOS%20|%20tvOS-blue)](https://developer.apple.com)
+[![License](https://img.shields.io/badge/License-MIT-lightgrey.svg)](LICENSE)
 
----
+AsyncButtonKit provides a custom SwiftUI `AsyncButton` component that supports `async`/`throws` actions with built-in loading indicators and customizable visual styles.
 
-## ✨ Features
+## Features
 
-- ✅ Supports `async` and `throws` actions
-- 🔄 Auto handles loading state with spinner/progress UI
-- 🎨 Customizable button variants: `.primary`, `.secondary`, `.destructive`
-- 📍 Multiple loading styles:
-  - `.replace` – Replaces content with spinner
-  - `.leading` – Spinner on the left of label
-  - `.trailing` – Spinner on the right of label
-  - `.overlay` – Spinner overlaid on top of content
-  - `.progressBar` – Linear progress under the label
-- 🧱 Built using native SwiftUI components
-- 🧰 Easily extensible and composable
+- ✅ Asynchronous and throwable action handling
+- 🌀 Built-in loading states (spinner, progress bar, overlays)
+- 🎨 Button variants and style customization
+- � Easily composable with SwiftUI views
+- 📱 Supports all Apple platforms (iOS)
 
----
+## Installation
 
-## 📦 Installation
+### Swift Package Manager
 
-Currently, ButtonKit is implemented as part of the SwiftUI app project. You can extract it into a Swift Package if needed (see `To Do` below).
+Add AsyncButtonKit to your Xcode project:
 
----
+1. Open your project in Xcode
+2. Select **File > Add Packages...**
+3. Enter the repository URL: `https://github.com/hassan31/async-button-kit`
+4. Select the version rule (recommend "Up to Next Major")
+5. Click **Add Package**
 
-## 🚀 Usage
+## Usage
+
+### Basic Example
+
+```swift
+import AsyncButtonKit
+import SwiftUI
+
+struct ContentView: View {
+    @State private var isLoading = false
+    
+    var body: some View {
+        AsyncButton(
+            isLoading: $isLoading,
+            action: {
+                try await performAsyncTask()
+            },
+            label: {
+                Text("Submit")
+                    .padding()
+            }
+        )
+    }
+    
+    private func performAsyncTask() async throws {
+        try await Task.sleep(nanoseconds: 2_000_000_000)
+    }
+}
+
+## Customization Options
+### Loading Styles
+Control how the loading indicator appears:
 
 ```swift
 AsyncButton(
-    variant: .primary,
-    action: {
-        try await Task.sleep(nanoseconds: 2_000_000_000)
-    },
-    loadingStyle: .leading
-) {
-    Text("Submit")
+    isLoading: $isLoading,
+    loadingStyle: .leading, // Choose from:
+    // .overlay (default)
+    // .replace
+    // .leading
+    // .trailing
+    // .progressBar
+    action: { ... },
+    label: { ... }
+)
+```
+
+### Button Variants
+Pre-defined visual styles:
+
+```swift
+AsyncButton(
+    isLoading: $isLoading,
+    variant: .primary, // Choose from:
+    // .primary (default)
+    // .secondary
+    // .bordered
+    // .danger
+    action: { ... },
+    label: { ... }
+)
+```
+
+### Advanced Customization
+You can extend the button styles by conforming to `AsyncButtonStyle` protocol:
+
+```swift
+extension AsyncButtonStyle where Self == CustomButtonStyle {
+    static var custom: Self { ... }
 }
+
+AsyncButton(
+    isLoading: $isLoading,
+    style: .custom,
+    action: { ... },
+    label: { ... }
+)
+```
+
+## Requirements
+iOS 15.0+
+Swift 5.9+
+Xcode 15+
+
+## Contributing
+Contributions are welcome! Please open an issue or submit a pull request.
+
+## License
+AsyncButtonKit is released under the MIT license. See LICENSE for details.
+
+Made with ❤️ by @hassan31
