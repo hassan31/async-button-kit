@@ -1,7 +1,7 @@
 # AsyncButtonKit
 
 [![Swift](https://img.shields.io/badge/Swift-5.9-orange.svg)](https://swift.org)
-[![Platforms](https://img.shields.io/badge/Platforms-iOS%20)](https://developer.apple.com)
+[![Platforms](https://img.shields.io/badge/Platforms-iOS%20|)](https://developer.apple.com)
 [![License](https://img.shields.io/badge/License-MIT-lightgrey.svg)](LICENSE)
 
 AsyncButtonKit provides a custom SwiftUI `AsyncButton` component that supports `async`/`throws` actions with built-in loading indicators and customizable visual styles.
